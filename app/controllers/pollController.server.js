@@ -5,6 +5,7 @@ var Poll = require('../models/polls.js');
 
 var PollHandler = function(){
 
+	// retrieves all available polls from the db
 	this.getPolls = function(req, res){
 		Poll.find( {} )
 		.exec(function(err, result){
@@ -13,7 +14,7 @@ var PollHandler = function(){
 		});
 	};
 
-
+	// retrives a single poll based on the id from the db
 	this.getPoll = function(req, res){
 		var pollId = req.params.id;
 		if (pollId !== 'bootstrap.min.css.map'){
@@ -25,7 +26,7 @@ var PollHandler = function(){
 		
 	};
 
-
+	// retrives all polls hosted by a particular user
 	this.getUserPolls = function(req, res){
 		var user = req.params.userPolls;
 		Poll.find({ 'authorId': user }, function (err, result) {
@@ -34,7 +35,7 @@ var PollHandler = function(){
 		});
 	};
 
-
+	// saves a poll
 	this.addPoll = function(req, res){
 		var newPoll = new Poll();
 
@@ -65,7 +66,7 @@ var PollHandler = function(){
 
 	};
 
-
+	// updates a poll
 	this.updatePoll = function(req, res){
 		console.log('updating poll');
 		//to add a new custom option to poll
@@ -150,7 +151,7 @@ var PollHandler = function(){
 
 	};
 
-
+	// deletes a poll
 	this.deletePoll = function(req, res){
 		Poll.remove( {_id: req.params.id}, function (err, result) {
 			if(err)
